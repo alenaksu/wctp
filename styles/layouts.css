@@ -1,0 +1,15 @@
+.slidev-layout {
+    h1 + p {
+        @apply mb-8;
+    }
+}
+
+[layout="image-right"] > .slidev-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[layout="two-cols"] {
+    @apply gap-8;
+}

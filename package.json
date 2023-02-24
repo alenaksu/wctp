@@ -1,0 +1,22 @@
+{
+    "name": "web-components-theming-presentation",
+    "private": true,
+    "scripts": {
+        "build": "slidev build",
+        "dev": "slidev --open",
+        "export": "slidev export"
+    },
+    "dependencies": {
+        "@slidev/cli": "^0.40.3",
+        "@slidev/theme-default": "*",
+        "@slidev/theme-seriph": "*",
+        "slidev-theme-dracula": "^0.1.0",
+        "slidev-theme-light-icons": "^1.0.2"
+    },
+    "slidev": {
+        "colorSchema": "both"
+    },
+    "devDependencies": {
+        "@iconify-json/twemoji": "^1.1.11"
+    }
+}
