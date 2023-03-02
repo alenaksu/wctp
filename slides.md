@@ -2,20 +2,20 @@
 author: Alessandro Valeri
 theme: seriph
 title: Web Components and Theming
-titleTemplate: "%s"
+titleTemplate: '%s'
 background: ./images/cover.webp
 highlighter: shiki
 lineNumbers: true
 info: null
 drawings:
-    persist: false
+  persist: false
 transition: slide-left
 layout: cover
 hideInToc: true
 fonts:
-    sans: Raleway
-    serif: Roboto Slab
-    mono: Fira Code
+  sans: Raleway
+  serif: Roboto Slab
+  mono: Fira Code
 css: unocss
 download: true
 ---
@@ -23,6 +23,16 @@ download: true
 # Web Components and Theming
 
 Building reusable and themeable UI components
+
+<!--
+Compound selector: A sequence of simple selectors that are not separated by a combinator
+-->
+
+---
+layout: center
+---
+
+https://stackblitz.com/fork/web-comp-theming
 
 ---
 layout: center
@@ -65,12 +75,13 @@ Like the one we see here, an implementation of an image carousel that can be exp
 
 -   ### Shadow DOM
 
-    Makes it possible to create elements that have their own encapsulated styles and markup, preventing them from interfering with the rest of the page
+    Makes it possible to create elements that have their own encapsulated styles and markup, preventing them from interfering with the rest of the page.
 
 -   ### HTML Templates
-    Provides you a way to define reusable chunks of HTML that can be easily cloned and inserted into your application
+    Provides you a way to define reusable chunks of HTML that can be easily cloned and inserted into your application.
 
 </v-clicks>
+
 
 ---
 layout: center
@@ -171,10 +182,9 @@ Demo time:
 -->
 
 ---
-layout: full
+layout: iframe
+url: https://stackblitz.com/edit/web-platform-l2bhuu?embed=1&file=index.html
 ---
-
-<CodeEditor />
 
 ---
 
@@ -350,13 +360,6 @@ class CardElement extends HTMLElement {
 }
 ```
 
-
----
-
-# Composition and slots
-
-Adding flexibility with the `<slot>` element
-
 ---
 layout: image-right
 image: images/html-templates.jpg
@@ -422,9 +425,78 @@ class MyElement extends HTMLElement {
 
 </v-click>
 
+---
+
+# Composition and slots
+
+Adding flexibility with the `<slot>` element
+
+```html{0|3-7|9-10|12-15|17-18|all}
+<my-element>
+  #shadowroot (open)
+    <!-- 
+      A slot is a placeholder on your Web Component that can be filled with markup. 
+      A component can define zero or more slots in its shadow DOM. 
+    -->
+    <slot></slot>
+
+    <!-- Slots can be empty or provide fallback content. -->
+    <slot>fallback content</slot> 
+
+    <slot> 
+        <h2>Title</h2>
+        <summary>Description text</summary>
+    </slot>
+
+    <!-- Slots can be named so that users can reference them by name. -->
+    <slot name="header">Default Header</slot>
+</my-element>
+```
+
+---
+
+# Example
+Defining a template for a Card component
+
+<div class="flex gap-6">
+
+  <div v-click class="flex-1">
+    
+  ```html
+  <template>
+    <div class="card">
+      <div class="header">
+        <slot name="header"></slot>
+      </div>
+      <div class="body">
+        <slot>
+          <p>No Content Provided</p>
+        </slot>
+      </div>
+    </div>
+  </template>
+  ```
+    
+  </div>
+
+  <div v-click class="flex-1">
+    
+  ```html
+  <card-element title="Card title">
+      <h1 slot="header">Slot header</h1>
+
+      <div>This is the card content</span>
+      <div>and also this</span> 
+  </card-element>
+  ```
+    
+  </div>
+  
+</div>
+
 <!--
 DEMO TIME:
-- tab panel
+- Card component
 -->
 
 ---
@@ -436,13 +508,50 @@ image: images/theming.jpg
 
 ---
 
+# CSS Custom Properties
+
+User-defined variables that contain specific values to be reused throughout a document.
+
+```css{0|1-6|8-12|10|11|12-18|10,16|all}
+:root {
+    /** Property names that are prefixed with "--" */
+    --background-color: #f8f9fa;
+    --text-color: #333333;
+    --spacing: 1rem;
+}
+
+body {
+    /** Values can be used using the `var()` function */
+    background-color: var(--background-color);
+    color: var(--text-color, black);
+}
+
+body.dark {
+    /** Variables can be overridden */
+    --background-color: #333333;
+    --text-color: #f8f9fa;
+}
+```
+
+<!--
+- The :root CSS pseudo-class matches the root element of a tree representing the document. In HTML, :root represents the html element and is identical to the selector html, except that its specificity is higher.
+  
+- Property names that are prefixed with --
+
+- Follow the same inheritance and cascade rules as other CSS properties
+
+- Variables defined in a more specific selector will override those defined in a less specific selector
+-->
+
+---
+
 # The `::part` pseudo-element
 
 Represents any element within a shadow tree that has a matching `part` attribute.
 
 <v-click>
 
-Assign a `part` attribute to style individual parts of a web component
+Assigning a `part` attribute to style individual parts of a web component
 
 ```html{all|3,4|all}
 <card-element title="Card title">
@@ -470,37 +579,38 @@ Assign a `part` attribute to style individual parts of a web component
 
 
 ---
-layout: default
----
 
-# CSS Custom Properties
+# The `::slotted` pseudo-element 
+Represents any element that has been placed into a slot inside an HTML template 
 
-TODO
-
-```css
-:root {
-    --primary-color: #007bff;
-    --background-color: #f8f9fa;
-    --text-color: #333;
+```css{0|1-3|5-8|10-13|all}
+::slotted(<compound-selector>) {
+  /* ... */
 }
 
-body {
-    background-color: var(--background-color);
-    color: var(--text-color);
+/* Selects any element placed inside a slot */
+::slotted(*) {
+  font-weight: bold;
 }
 
-button {
-    background-color: var(--primary-color);
-    color: white;
+/* Selects any <span> placed inside a slot */
+::slotted(span) {
+  font-weight: bold;
 }
 ```
 
+<v-clicks>
+
+* Only works when used inside CSS placed within a shadow DOM
+
+</v-clicks>
+
 <!--
-The :root CSS pseudo-class matches the root element of a tree representing the document. In HTML, :root represents the <html> element and is identical to the selector html, except that its specificity is higher.
+Compound selector: a sequence of simple selectors that are not separated by a combinator
 -->
 
----
-
+<!--
 # Constructible Stylesheets
 
 Provides a way to create and share reusable CSS styles to multiple Shadow Roots or the Document easily and without duplication.
+-->
