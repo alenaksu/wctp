@@ -25,14 +25,8 @@ download: true
 Building reusable and themeable UI components
 
 <!--
-Compound selector: A sequence of simple selectors that are not separated by a combinator
--->
-
----
-layout: center
----
-
 https://stackblitz.com/fork/web-comp-theming
+-->
 
 ---
 layout: center
@@ -180,11 +174,6 @@ Demo time:
 - Alert button
 - Prompt button
 -->
-
----
-layout: iframe
-url: https://stackblitz.com/edit/web-platform-l2bhuu?embed=1&file=index.html
----
 
 ---
 
