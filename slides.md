@@ -293,14 +293,6 @@ Understanding the differences and benefits of Light DOM and Shadow DOM
 - `Shadow boundary`: the place where the shadow DOM ends, and the regular DOM begins.
 - `Shadow root`: The root node of the shadow tree, is a document fragment that gets attached to a “host” element.
 - `light DOM vs. shadow DOM`
-
-
-- https://web.dev/shadowdom-v1/#creating-shadow-dom
-- https://kinsta.com/blog/web-components/#a-brief-history-of-web-components
-- https://www.youtube.com/watch?v=YBwgkr_Sbx0&t=9s
-- https://www.youtube.com/watch?v=DBcz_bGcHgk&t=335s
-- https://www.digitalocean.com/community/tutorials/web-components-your-first-custom-element#shadow-dom
-- https://web.dev/constructable-stylesheets/#:~:text=Constructable%20Stylesheets%20are%20a%20way,styles%20when%20using%20Shadow%20DOM.&text=It%20has%20always%20been%20possible,element%20using%20document.
 -->
 
 ---
