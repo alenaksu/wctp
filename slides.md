@@ -240,6 +240,19 @@ customElements.whenDefined("lazy-element").then(() => {
 
 </v-click>
 
+<v-click>
+
+Pre-styling unregistered elements
+
+```css
+lazy-element:not(:defined) {
+  opacity: 0;
+}
+```
+
+</v-click>
+
+
 ---
 layout: image-right
 image: images/shadow-dom.jpg
