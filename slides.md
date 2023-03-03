@@ -121,6 +121,7 @@ class MyElement extends HTMLElement {
     }
 }
 
+// The name of a custom element must contain a dash (-)
 customElements.define("my-element", MyElement);
 ```
 
